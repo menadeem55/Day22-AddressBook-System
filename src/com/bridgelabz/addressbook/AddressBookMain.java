@@ -4,15 +4,14 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class AddressBookMain {
-
 	public static void main(String[] args) {
-		String addrBookName = "";
+		String addrBookName = "", stateName, cityName;
 		System.out.println("Welcome to Address Book Program!");
-		Scanner scanner = new Scanner(System.in); // Create object
+		Scanner scanner = new Scanner(System.in);
 		AddressBook addrBook;
 		HashMap<String, AddressBook> addrBooks = new HashMap<String, AddressBook>();
 
-		char superChoice = ' ', choice;
+		char superChoice = ' ', choice, viewChoice;
 
 		while (true) {
 
@@ -20,6 +19,7 @@ public class AddressBookMain {
 				break;
 
 			System.out.println("Enter '1' to add new Address Book!");
+			System.out.println("Enter '2' to view existing Address Book");
 			System.out.println("Enter 'x' to Exit Program!");
 			System.out.println("Enter your choice:");
 			superChoice = scanner.next().charAt(0);
@@ -73,6 +73,42 @@ public class AddressBookMain {
 
 				}
 				break;
+			case '2':
+				scanner.nextLine();
+				System.out.println("Enter Name of Address Book to view:");
+				addrBookName = scanner.nextLine();
+				addrBook = addrBooks.get(addrBookName);
+
+				System.out.println("Enter '1' to view by State Names!");
+				System.out.println("Enter '2' to view by City Names!");
+				System.out.println("Enter your choice: ");
+				viewChoice = scanner.next().charAt(0);
+
+				System.out.println("\n-------------------------------------------------------");
+				System.out.println("Name of Address Book: " + addrBookName + "\n");
+				switch (viewChoice) {
+				case '1':
+					scanner.nextLine();
+					System.out.println("Enter State Name: ");
+					stateName = scanner.nextLine();
+					addrBook.viewAddrBook(stateName);
+					break;
+				case '2':
+					scanner.nextLine();
+					System.out.println("Enter State Name: ");
+					stateName = scanner.nextLine();
+
+					System.out.println("Enter City Name: ");
+					cityName = scanner.next();
+
+					addrBook.viewAddrBook(stateName, cityName);
+					break;
+				default:
+					System.out.println("Invalid: View Choice!");
+				}
+
+				System.out.println("-------------------------------------------------------");
+				break;
 			case 'x':
 				System.out.println("Exiting Program!");
 				continue;
@@ -83,5 +119,4 @@ public class AddressBookMain {
 
 		scanner.close();
 	}
-
 }
